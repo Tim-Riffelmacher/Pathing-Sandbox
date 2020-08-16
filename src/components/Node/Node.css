@@ -1,0 +1,9 @@
+circle {
+  stroke-width: 5;
+  cursor: pointer;
+}
+
+circle:hover {
+  stroke-width: 4;
+  stroke: #007bff;
+}
