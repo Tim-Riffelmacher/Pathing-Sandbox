@@ -2,6 +2,7 @@ import { addPathToSequence } from "../algorithms";
 
 export const dijkstra = (adjMatrix, startNode) => {
   let sequence = [];
+  const pathsForSequenceAdd = [];
 
   let distances = new Array(adjMatrix.length).fill(Number.MAX_SAFE_INTEGER);
   distances[startNode] = 0;
@@ -19,7 +20,6 @@ export const dijkstra = (adjMatrix, startNode) => {
     if (idxOfMinDistance === -1) {
       continue;
     }
-    const pathsForSequenceAdd = [];
     for (let j = 0; j < adjMatrix.length; j++) {
       const totalDistance =
         distances[idxOfMinDistance] + adjMatrix[idxOfMinDistance][j];
@@ -37,14 +37,14 @@ export const dijkstra = (adjMatrix, startNode) => {
         });
       }
     }
-    pathsForSequenceAdd.sort((a, b) => compare(a, b));
-    for (const singlePath of pathsForSequenceAdd) {
-      addPathToSequence(
-        sequence,
-        singlePath.idxOfFirstNode,
-        singlePath.idxOfSecondNode
-      );
-    }
+  }
+  pathsForSequenceAdd.sort((a, b) => compare(a, b));
+  for (const singlePath of pathsForSequenceAdd) {
+    addPathToSequence(
+      sequence,
+      singlePath.idxOfFirstNode,
+      singlePath.idxOfSecondNode
+    );
   }
 
   return sequence;
