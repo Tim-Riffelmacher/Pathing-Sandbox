@@ -53,7 +53,7 @@ export default class Body extends Component {
       return;
     }
     const posX = event.pageX;
-    const posY = event.pageY - globals.toolbarHeight;
+    const posY = event.pageY - globals.toolbar.height;
     for (const node of nodes) {
       if (node == null) {
         continue;
@@ -66,7 +66,7 @@ export default class Body extends Component {
       }
     }
     const idx = nodes.length;
-    onAddNode(idx, event.pageX, event.pageY - globals.toolbarHeight);
+    onAddNode(idx, posX, posY);
   }
 
   handleClickOnNode(idxOfNode) {

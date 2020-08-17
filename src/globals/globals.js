@@ -1,5 +1,7 @@
 export const globals = {
-  toolbarHeight: 75,
+  toolbar: {
+    height: 75,
+  },
   nodes: {
     minDist: 120,
     radius: 35,
