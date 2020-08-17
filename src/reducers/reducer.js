@@ -45,29 +45,21 @@ const reducer = (state = initState, action) => {
       };
     case ADD_PATH:
       const copiedPathsForAddPath = copyPaths(state.paths);
-      copiedPathsForAddPath[payload.idxOfFirstNode][payload.idxOfSecondNode] = {
-        ...state.paths[payload.idxOfFirstNode][payload.idxOfSecondNode],
-        weight: payload.weight,
-      };
-      copiedPathsForAddPath[payload.idxOfSecondNode][payload.idxOfFirstNode] = {
-        ...state.paths[payload.idxOfSecondNode][payload.idxOfFirstNode],
-        weight: payload.weight,
-      };
+      symmetricArrayObjectAsign(
+        copiedPathsForAddPath,
+        payload.idxOfFirstNode,
+        payload.idxOfSecondNode,
+        { weight: payload.weight }
+      );
       return { ...state, paths: copiedPathsForAddPath };
     case HIGHLIGHT_PATH:
       const copiedPathsForHighlight = copyPaths(state.paths);
-      copiedPathsForHighlight[payload.idxOfFirstNode][
-        payload.idxOfSecondNode
-      ] = {
-        ...state.paths[payload.idxOfFirstNode][payload.idxOfSecondNode],
-        highlightColor: payload.color,
-      };
-      copiedPathsForHighlight[payload.idxOfSecondNode][
-        payload.idxOfFirstNode
-      ] = {
-        ...state.paths[payload.idxOfSecondNode][payload.idxOfFirstNode],
-        highlightColor: payload.color,
-      };
+      symmetricArrayObjectAsign(
+        copiedPathsForHighlight,
+        payload.idxOfFirstNode,
+        payload.idxOfSecondNode,
+        { highlightColor: payload.color }
+      );
       return { ...state, paths: copiedPathsForHighlight };
     case UNHIGHLIGHT_ALL:
       const copiedPathsForUnhighlight = [...state.paths];
@@ -105,6 +97,11 @@ const copyPaths = (paths) => {
     }
   }
   return copiedPaths;
+};
+
+const symmetricArrayObjectAsign = (arr, idxOne, idxTwo, obj) => {
+  arr[idxOne][idxTwo] = { ...arr[idxOne][idxTwo], ...obj };
+  arr[idxTwo][idxOne] = { ...arr[idxTwo][idxOne], ...obj };
 };
 
 export default reducer;
